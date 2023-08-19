@@ -14,6 +14,7 @@
  * 2. Bulkify Logic: Ensure that the trigger logic is bulkified so that it can handle multiple records efficiently without hitting governor limits.
  * 3. Avoid Recursive Triggers: Ensure that the callout logic doesn't result in changes that re-invoke the same trigger, causing a recursive loop.
  * 
+ * Optional Challenge: Use a trigger handler class to implement the trigger logic.
  */
 trigger ContactTrigger on Contact(before insert) {
 	// When a contact is inserted
