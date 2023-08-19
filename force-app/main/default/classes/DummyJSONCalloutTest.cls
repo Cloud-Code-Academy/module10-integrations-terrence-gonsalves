@@ -126,4 +126,31 @@ public with sharing class DummyJSONCalloutTest {
 		System.assertEquals('TS', cont.MailingState, 'MailingState does not match.');
 		System.assertEquals('Testland', cont.MailingCountry, 'MailingCountry does not match.');
 	}
+
+	@IsTest
+	static void testContactInsert() {
+		Contact cont = new Contact(FirstName = 'Test', LastName = 'User');
+
+		// Register the mock callout class
+		Test.setMock(HttpCalloutMock.class, new DummyJSONCalloutMockGenerator());
+
+		// As this is a future method, we need to enclose it in Test.startTest() and Test.stopTest() to ensure it's executed in the test context.
+		Test.startTest();
+		insert cont;
+		Test.stopTest();
+
+		// After the stopTest, the future method will have run. Now we can check if the contact was created correctly.
+		cont = [
+			SELECT Email, Phone, Birthdate, MailingStreet, MailingCity, MailingPostalCode, MailingState, MailingCountry
+			FROM Contact
+			WHERE Id = :cont.Id
+		];
+		System.assertEquals(cont.Email, 'test@example.com', 'Email does not match your value: ' + cont.Email);
+		System.assertEquals(cont.Phone, '+123456789', 'Phone does not match your value: ' + cont.Phone);
+		System.assertEquals(
+			cont.Birthdate,
+			Date.valueOf('1990-01-01'),
+			'Birthdate does not match your value: ' + cont.Birthdate
+		);
+	}
 }
