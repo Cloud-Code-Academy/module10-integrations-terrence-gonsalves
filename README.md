@@ -1,5 +1,5 @@
-# Developer Kickstart Week 10: Integrations
-This project is a pivotal element of the Developer Kickstart Week 10 curriculum at Cloud Code Academy. Crafted for aspiring Salesforce developers, this module delves into the intricate domain of integrations, spotlighting the principles, tools, and best practices necessary to effectively connect Salesforce with external systems and platforms.
+# Developer Kickstart: Integrations
+This project is a pivotal element of the Developer Kickstart curriculum at Cloud Code Academy. Crafted for aspiring Salesforce developers, this module delves into the intricate domain of integrations, spotlighting the principles, tools, and best practices necessary to effectively connect Salesforce with external systems and platforms.
 
 ## Goals of the Practice
 Throughout this project, you will broaden your comprehension of:
