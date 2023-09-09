@@ -42,7 +42,7 @@ public with sharing class DummyJSONCallout {
 
 		// Send the HTTP request and get the response.
 
-		// If the HTTP response code is successful, udpate a contact from the JSON response.
+		// If the HTTP response code is successful, insert/update from the JSON response using the external id (dummyUserId)
 	}
 
 	/* 
