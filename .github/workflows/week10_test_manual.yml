@@ -1,4 +1,4 @@
-name: Week 9 Run Apex Unit Tests Manually
+name: Week 10 Run Apex Unit Tests Manually
 
 on:
     workflow_dispatch:
@@ -52,4 +52,4 @@ jobs:
 
             - name: Run Apex Unit Tests
               run: |
-                  sf apex run test -r human -c --wait 10 -o org -n AsynchronousTest
+                  sf apex run test -r human -c --wait 10 -o org -n DummyJSONCalloutTest
