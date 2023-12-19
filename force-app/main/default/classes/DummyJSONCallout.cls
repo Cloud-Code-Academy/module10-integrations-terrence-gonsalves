@@ -124,6 +124,8 @@ public with sharing class DummyJSONCallout {
 		// Create a map of the field values.
 
 		// Serialize the map into a JSON string.
+		// Make sure to check that required contacts fields have a value. Default the value to unknown if it does not exists.
+		// Integration data can change over time. It is a best practice to add safeguards/validation to ensure the integration does not break.
 
 		return null;
 	}
