@@ -24,6 +24,7 @@
 public with sharing class DummyJSONCallout {
 
 	/* 
+	 * Question 1
      * Fetches user information from an external system https://dummyjson.com/user/{id} ('DummyJsonUser') based on the provided dummy user ID. 
      * If the callout is successful and returns an HTTP status of 200, the method will update a contact based on the DummyJSON_Id__c with the data returned from the external system.
 	 * Use the createContactFromJson method to parse the JSON response and create a Salesforce Contact object.
@@ -48,6 +49,7 @@ public with sharing class DummyJSONCallout {
 	}
 
 	/* 
+	 * Question 2
      * Transforms a JSON response from the external system https://dummyjson.com/users into a Salesforce Contact object.
      * The method parses the JSON string to extract user details and map them to a Salesforce Contact object.
      * The contact fields populated from the JSON include Email, Phone, Birthdate, and various address-related fields.
@@ -76,7 +78,8 @@ public with sharing class DummyJSONCallout {
 		return null;
 	}
 
-	/*
+	/* 
+	 * Question 4
      * Sends Contact information to an external system https://dummyjson.com/users/add ('DummyJsonUser') to create or update a user based on the provided Salesforce Contact ID.
      * The method prepares a JSON payload with the contact's information and sends it to the 'DummyJsonUser' add endpoint.
      * If the callout is successful (HTTP status code between 200 and 299), the method updates the contact's 'DummyJSON_Last_Updated__c' field in Salesforce to the current time.
@@ -104,6 +107,7 @@ public with sharing class DummyJSONCallout {
 	}
 
 	/*
+	 * Question 5
      * Generates a JSON payload based on a Salesforce Contact's fields to be sent to an external system https://dummyjson.com/users/add for user creation or update.
      * The method queries a contact from Salesforce based on the provided contactId and maps its fields into a JSON payload.
      * The fields from Salesforce Contact that are transformed into the JSON payload include Id, FirstName, LastName, Email, and Phone.

@@ -1,8 +1,8 @@
 # Developer Kickstart: Integrations
-This project is a pivotal element of the Developer Kickstart curriculum at Cloud Code Academy. Crafted for aspiring Salesforce developers, this module delves into the intricate domain of integrations, spotlighting the principles, tools, and best practices necessary to effectively connect Salesforce with external systems and platforms.
+This repository is a pivotal element of the Developer Kickstart curriculum at Cloud Code Academy. Crafted for aspiring Salesforce developers, this module delves into the intricate domain of integrations, spotlighting the principles, tools, and best practices necessary to effectively connect Salesforce with external systems and platforms.
 
 ## Goals of the Practice
-Throughout this project, you will broaden your comprehension of:
+Throughout this repository, you will broaden your comprehension of:
 
 - The fundamental importance of integrations in creating cohesive, interconnected solutions that bridge Salesforce with other platforms and applications.
 - Employing RESTful Web Services to facilitate standardized communication between systems.
@@ -18,14 +18,12 @@ By mastering Salesforce integrations, you will be empowered to create holistic a
 
 [Intermediate Setup Overview Video](https://vimeo.com/847130413/955b8bdbe2)
 
-To get started, you'll need a Salesforce Trailhead Playground. If you don't have one, you can create it for free from any Trailhead module.
-
-After you've set up your Trailhead Playground:
-
-1. Install Visual Studio Code from [here](https://code.visualstudio.com/download).
-2. Install Salesforce Extension Pack in Visual Studio Code. This can be done by searching 'Salesforce Extension Pack' in the Extensions view in VS Code and clicking Install.
-3. Authorize your Trailhead Playground in Visual Studio Code. Press `Ctrl + Shift + P` to open the command palette and type 'SFDX: Authorize an Org', then press Enter. Follow the steps in the browser to log in to your Playground, then return to VS Code.
-4. Deploy the Apex Class by right clicking on the `VariablesDatatypesOperators` and  `VariablesDatatypesOperatorsTest` file a using the option SFDX: Deploy Source to Org.
+## Getting Started Checklist
+1. Create/Configure a trailhead playground or developer org to do your work throughout this program.
+2. Install Visual Studio Code from [here](https://code.visualstudio.com/download).
+3. Install Salesforce Extension Pack in Visual Studio Code. This can be done by searching 'Salesforce Extension Pack' in the Extensions view in VS Code and clicking Install.
+4. Authorize your org in Visual Studio Code. Press `Ctrl + Shift + P` to open the command palette and type 'SFDX: Authorize an Org', then press Enter. Follow the steps in the browser to log in to your org, then return to VS Code.
+5. Make sure to save and deploy your changes into Salesforce from your local machine. This can be done through the command pallet or right clicking the file you want to deploy and using the option `SFDX: Deploy this source to org`
 
 ## Running the Test Classes
 
