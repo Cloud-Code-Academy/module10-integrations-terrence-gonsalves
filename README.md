@@ -14,9 +14,7 @@ Throughout this repository, you will broaden your comprehension of:
 By mastering Salesforce integrations, you will be empowered to create holistic and interconnected solutions that leverage the full capabilities of both Salesforce and third-party platforms. This knowledge forms the bedrock for crafting versatile Salesforce solutions that serve diverse business needs by tapping into external functionalities and data sources.
 
 ## Setup
-[Beginner Setup Overview Video](https://vimeo.com/839597882/46fc06d93e)
-
-[Intermediate Setup Overview Video](https://vimeo.com/847130413/955b8bdbe2)
+[Setup Overview](https://learn.cloudcodeacademy.com/courses/salesforce-developer-kickstart-program/lectures/47317617)
 
 ## Getting Started Checklist
 1. Create/Configure a trailhead playground or developer org to do your work throughout this program.
