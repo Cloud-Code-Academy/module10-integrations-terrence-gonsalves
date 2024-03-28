@@ -79,7 +79,7 @@ public with sharing class DummyJSONCallout {
 	}
 
 	/* 
-	 * Question 4
+	 * Question 3
      * Sends Contact information to an external system https://dummyjson.com/users/add ('DummyJsonUser') to create or update a user based on the provided Salesforce Contact ID.
      * The method prepares a JSON payload with the contact's information and sends it to the 'DummyJsonUser' add endpoint.
      * If the callout is successful (HTTP status code between 200 and 299), the method updates the contact's 'DummyJSON_Last_Updated__c' field in Salesforce to the current time.
@@ -107,7 +107,7 @@ public with sharing class DummyJSONCallout {
 	}
 
 	/*
-	 * Question 5
+	 * Question 4
      * Generates a JSON payload based on a Salesforce Contact's fields to be sent to an external system https://dummyjson.com/users/add for user creation or update.
      * The method queries a contact from Salesforce based on the provided contactId and maps its fields into a JSON payload.
      * The fields from Salesforce Contact that are transformed into the JSON payload include Id, FirstName, LastName, Email, and Phone.
