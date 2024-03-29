@@ -145,8 +145,8 @@ public with sharing class DummyJSONCalloutTest {
 			FROM Contact
 			WHERE Id = :cont.Id
 		];
-		System.assertEquals(cont.Email, 'test@example.com', 'Email does not match your value: ' + cont.Email);
-		System.assertEquals(cont.Phone, '+123456789', 'Phone does not match your value: ' + cont.Phone);
+		System.assertEquals('test@example.com', cont.Email, 'Email does not match your value: ' + cont.Email);
+		System.assertEquals('+123456789', cont.Phone,  'Phone does not match your value: ' + cont.Phone);
 		System.assertEquals(
 			cont.Birthdate,
 			Date.valueOf('1990-01-01'),
