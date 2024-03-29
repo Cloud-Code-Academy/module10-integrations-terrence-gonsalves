@@ -111,8 +111,8 @@ public with sharing class DummyJSONCalloutTest {
 	@isTest
 	static void testCreateContactFromJson() {
 		// JSON string that represents the response data
-		String jsonResponse = '{"email": "test@example.com", "phone": "+123456789", "birthDate": "1990-01-01", "address": {"address": "123 Test St", "city": "Test City", "postalCode": "12345", "state": "TS", "country": "Testland"}}';
-
+		String jsonResponse = DummyJSONCalloutMockGenerator.DUMMY_JSON_USER_PAYLOAD;
+		
 		// Call the method
 		Contact cont = DummyJSONCallout.createContactFromJson(jsonResponse);
 
