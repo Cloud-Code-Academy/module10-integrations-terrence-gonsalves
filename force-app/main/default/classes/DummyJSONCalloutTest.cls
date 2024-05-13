@@ -149,7 +149,7 @@ public with sharing class DummyJSONCalloutTest {
 
 		// After the stopTest, the future method will have run. Now we can check if the contact was created correctly.
 		contacts = [
-			SELECT Email, Phone, Birthdate, MailingStreet, MailingCity, MailingPostalCode, MailingState, MailingCountry
+			SELECT DummyJSON_Id__c, Email, Phone, Birthdate, MailingStreet, MailingCity, MailingPostalCode, MailingState, MailingCountry
 			FROM Contact
 			WHERE Id IN :contacts AND DummyJSON_Id__c != null
 		];
