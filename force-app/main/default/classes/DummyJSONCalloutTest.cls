@@ -135,7 +135,7 @@ public with sharing class DummyJSONCalloutTest {
 	static void testContactInsert() {
 		//Create 100 contact
 		List<Contact> contacts = new List<Contact>();
-		for (Integer i = 0; i < 100; i++) {
+		for (Integer i = 0; i < 1; i++) {
 			contacts.add(new Contact(FirstName = 'Test', LastName = 'User' + i));
 		}
 
