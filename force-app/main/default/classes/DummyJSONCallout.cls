@@ -118,19 +118,42 @@ public with sharing class DummyJSONCallout {
      * 
      * @param contactId The Salesforce Contact ID used to generate the JSON payload for the external system.
      */
-	
+	@future(callout=true)
 	public static void postCreateDummyJSONUser(String contactId) {
 		// Create HTTP request to send.
+		Http http = new Http();
 
 		// Set the endpoint URL. Use direct URL or for best practices use Named Credential.
+		HttpRequest request = new HttpRequest();
+		request.setEndpoint('https://dummyjson.com/users/add');
 
 		// Set the HTTP method to POST.
+		request.setMethod('POST');
+		request.setHeader('Content-Type', 'application/json');
 
 		// Set the body using generateDummyJsonUserPayload method.
+		String contactBody = generateDummyJsonUserPayload(contactId);
+		request.setBody(contactBody);		
 
 		// Send the HTTP request and get the response.
+		HttpResponse response = http.send(request);
 
 		// If the HTTP response code is successful, update the contact.
+		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {		
+
+			// this is where we would serialise our data and then create a new user
+			//Contact cont = createContactFromJson(response.getBody());
+			Contact cont = [SELECT Id, DummyJSON_Last_Updated__c FROM Contact WHERE Id = :contactId];
+			cont.DummyJSON_Last_Updated__c = Datetime.now();
+
+			try {
+				update cont;
+			} catch (DmlException e) {				
+				System.debug('Error updating contact: ' + e.getMessage());
+			}
+		} else {
+			System.debug('There was as error in posting the data: ' + response.getStatusCode());
+		}
 	}
 
 	/*
@@ -151,14 +174,31 @@ public with sharing class DummyJSONCallout {
 	@TestVisible // Allows test class to see this method. Since it is private, it would not be visible otherwise.
 	private static String generateDummyJsonUserPayload(String contactId) {
 		// Query the contact to get the field values to generate the JSON payload.
-		List<Contact> selectedContact = [SELECT Id, FirstName, LastName, Email, Phone FROM Contact WHERE Id = :contactId];
+		List<Contact> selectedContact = new List<Contact>();
+
+		// if (Contact.SObjectType.getDescribe().isAccessible() && Schema.SObjectType.Contact.fields.FirstName.isAccessible() &&
+        //     Schema.SObjectType.Contact.fields.Phone.isAccessible() && Schema.SObjectType.Contact.fields.LastName.isAccessible() &&
+        //     Schema.SObjectType.Contact.fields.Email.isAccessible()) {
+			selectedContact = [SELECT Id, FirstName, LastName, Email, Phone FROM Contact WHERE Id = :contactId];
+		//}
 
 		// Create a map of the field values.
+		Map<String, Object> jsonMap = new Map<String, Object>();
+		
+		// if a contact is selected, set the values to the jsonMap object.
+		if (selectedContact.size() > 0) {
+			jsonMap.put('firstName', selectedContact[0].FirstName ?? 'unknown');
+			jsonMap.put('lastName', selectedContact[0].LastName ?? 'unknown');
+			jsonMap.put('email', selectedContact[0].Email ?? 'unknown');
+			jsonMap.put('phone', selectedContact[0].Phone ?? 'unknown');
+			jsonMap.put('Id', contactId);
+		}
 
 		// Serialize the map into a JSON string.
 		// Make sure to check that required contacts fields have a value. Default the value to unknown if it does not exists.
 		// Integration data can change over time. It is a best practice to add safeguards/validation to ensure the integration does not break.
+		String jsonPayLoad = JSON.serialize(jsonMap);
 
-		return null;
+		return jsonPayLoad;
 	}
 }
