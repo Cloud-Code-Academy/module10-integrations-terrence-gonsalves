@@ -33,7 +33,7 @@ public with sharing class DummyJSONCallout {
 	 * 
      * @param dummyUserId The ID of the user in the external system to fetch data for.
      */
-	@future(callout=true)
+	//@future(callout=true)
 	public static void getDummyJSONUserFromId(String dummyUserId) {
 
 		// Create HTTP request to send.
@@ -118,7 +118,6 @@ public with sharing class DummyJSONCallout {
      * 
      * @param contactId The Salesforce Contact ID used to generate the JSON payload for the external system.
      */
-	@future(callout=true)
 	public static void postCreateDummyJSONUser(String contactId) {
 		// Create HTTP request to send.
 		Http http = new Http();
@@ -189,9 +188,10 @@ public with sharing class DummyJSONCallout {
 		if (selectedContact.size() > 0) {
 			jsonMap.put('firstName', selectedContact[0].FirstName ?? 'unknown');
 			jsonMap.put('lastName', selectedContact[0].LastName ?? 'unknown');
-			jsonMap.put('email', selectedContact[0].Email ?? 'unknown');
+			jsonMap.put('email', selectedContact[0].Email ?? 'unknown@email.com');
 			jsonMap.put('phone', selectedContact[0].Phone ?? 'unknown');
-			jsonMap.put('Id', contactId);
+			jsonMap.put('Id', selectedContact[0].Id);
+			jsonMap.put('salesforceId', selectedContact[0].Id);
 		}
 
 		// Serialize the map into a JSON string.
