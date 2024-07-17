@@ -33,19 +33,36 @@ public with sharing class DummyJSONCallout {
 	 * 
      * @param dummyUserId The ID of the user in the external system to fetch data for.
      */
-
+	@future(callout=true)
 	public static void getDummyJSONUserFromId(String dummyUserId) {
+
 		// Create HTTP request to send.
+		Http http = new Http();
 
 		// Set the endpoint URL. Use direct URL or for best practices use Named Credential.
+		HttpRequest request = new HttpRequest();
+		request.setEndpoint('https://dummyjson.com/users/' + dummyUserId);
 
 		// Set the HTTP method to GET.
+		request.setMethod('GET');
 
 		// Send the HTTP request and get the response.
+		HttpResponse response = http.send(request);
 
 		// If the HTTP response code is successful, parse the JSON response and update the contact.
-		Contact cont = null;
-		upsert cont DummyJSON_Id__c; //insert/update from the JSON response using the external id (dummyUserId)
+		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+			Contact cont = createContactFromJson(response.getBody());
+			cont.DummyJSON_Last_Updated__c = Datetime.now();
+			cont.DummyJSON_Id__c = dummyUserId;
+
+			try {
+				upsert cont DummyJSON_Id__c; //insert/update from the JSON response using the external id (dummyUserId)
+			} catch (DmlException e) {				
+				System.debug('Error updating contact: ' + e.getMessage());
+			}
+		} else {
+			System.debug('Error in fetching JSON data: ' + response.getStatus());
+		}
 	}
 
 	/* 
@@ -66,16 +83,26 @@ public with sharing class DummyJSONCallout {
 	@TestVisible // Allows test class to see this method. Since it is private, it would not be visible otherwise.
 	private static Contact createContactFromJson(String jsonResponse) {
 		// Deserialize the JSON string into map of primitive data types.
+		Map<String, Object> jsonMap = (Map<String, Object>) JSON.deserializeUntyped(jsonResponse); // holds top level json items
+		Map<String, Object> jsonMapAddress = (Map<String, Object>) jsonMap.get('address'); // holds sub-level address items
 
 		// Create a new contact from the JSON response.
+		Contact cont = new Contact();
 
 		// Set the contact fields from the JSON response.
+		cont.Email = (String) jsonMap.get('email');
+		cont.Phone = (String) jsonMap.get('phone');
+		cont.Birthdate = Date.valueOf((String) jsonMap.get('birthDate')); 
+		cont.MailingStreet = (String) jsonMapAddress.get('address');
+		cont.MailingCity = (String) jsonMapAddress.get('city');
+		cont.MailingPostalCode = (String) jsonMapAddress.get('postalCode');
+		cont.MailingState = (String) jsonMapAddress.get('state');
+		cont.MailingCountry = (String) jsonMapAddress.get('country');
 
 		// Deserialize the address from the JSON response.
 
-		// Set the address fields on the contact.
-
-		return null;
+		// Set the address fields on the contact
+		return cont;
 	}
 
 	/* 
@@ -124,6 +151,7 @@ public with sharing class DummyJSONCallout {
 	@TestVisible // Allows test class to see this method. Since it is private, it would not be visible otherwise.
 	private static String generateDummyJsonUserPayload(String contactId) {
 		// Query the contact to get the field values to generate the JSON payload.
+		List<Contact> selectedContact = [SELECT Id, FirstName, LastName, Email, Phone FROM Contact WHERE Id = :contactId];
 
 		// Create a map of the field values.
 
